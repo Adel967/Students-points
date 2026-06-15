@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حلقة المسجد - نظام النقاط</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="students.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #0a5c3a;
+      --green-mid: #137a4f;
+      --green-light: #1aaa6e;
+      --green-pale: #e8f7f1;
+      --gold: #c8953a;
+      --gold-light: #fdf5e6;
+      --cream: #fdfaf6;
+      --text-main: #1a1a1a;
+      --text-muted: #666;
+      --border: #e0ddd8;
+      --white: #fff;
+      --rank1: #c8953a;
+      --rank2: #8c9aab;
+      --rank3: #a0714e;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--cream);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .header-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    header h1 { font-size: 1.9rem; font-weight: 900; letter-spacing: 0.5px; }
+    header p { font-size: 1rem; opacity: 0.85; margin-top: 0.4rem; }
+    .week-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 0.3rem 1.2rem;
+      font-size: 0.88rem;
+      margin-top: 0.8rem;
+    }
+
+    /* ─── Main container ─── */
+    main { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+    /* ─── Star of the week ─── */
+    .star-card {
+      background: linear-gradient(135deg, #fdf5e6 0%, #fff8ec 100%);
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      text-align: center;
+      position: relative;
+    }
+    .star-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .star-crown { font-size: 2.5rem; }
+    .star-name { font-size: 1.5rem; font-weight: 900; color: var(--green-dark); margin: 0.3rem 0; }
+    .star-points { font-size: 1rem; color: var(--gold); font-weight: 600; }
+    .star-badge {
+      position: absolute;
+      top: -12px;
+      right: 50%;
+      transform: translateX(50%);
+      background: var(--gold);
+      color: white;
+      border-radius: 20px;
+      padding: 0.25rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .juz-badge {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      border-radius: 10px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+    }
+
+    /* ─── Stats row ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--green-dark); }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* ─── Leaderboard ─── */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .student-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.7rem;
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .student-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    }
+    .student-card.rank-1 { border-color: var(--gold); border-width: 2px; background: #fffdf7; }
+    .student-card.rank-2 { border-color: #b0bec5; }
+    .student-card.rank-3 { border-color: #c4956a; }
+
+    .rank-badge {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .rank-badge.r1 { background: var(--gold); color: white; }
+    .rank-badge.r2 { background: #b0bec5; color: white; }
+    .rank-badge.r3 { background: #c4956a; color: white; }
+    .rank-badge.rn { background: var(--green-pale); color: var(--green-dark); }
+
+    .student-info .sname { font-size: 1rem; font-weight: 700; }
+    .student-info .smeta {
+      font-size: 0.78rem; color: var(--text-muted);
+      display: flex; gap: 0.8rem; margin-top: 0.25rem; flex-wrap: wrap;
+    }
+    .smeta span { display: flex; align-items: center; gap: 0.2rem; }
+
+    .student-points { text-align: center; }
+    .points-total { font-size: 1.5rem; font-weight: 900; color: var(--green-dark); }
+    .points-week {
+      font-size: 0.75rem; color: var(--green-light);
+      display: block; font-weight: 600;
+    }
+    .points-label { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* Progress bar */
+    .progress-wrap { margin-top: 0.4rem; }
+    .progress-bar {
+      height: 5px; border-radius: 3px;
+      background: var(--green-pale);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--green-light);
+      border-radius: 3px;
+      transition: width 0.8s ease;
+    }
+    .student-card.rank-1 .progress-fill { background: var(--gold); }
+
+    /* Tags */
+    .tag-juz {
+      display: inline-block;
+      background: var(--green-dark);
+      color: white;
+      border-radius: 8px;
+      padding: 0.15rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-right: 0.3rem;
+    }
+
+    /* ─── Rules Section ─── */
+    .rules-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem;
+      margin-top: 2rem;
+    }
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .rule-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .rule-dot {
+      width: 32px; height: 32px;
+      border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.8rem;
+    }
+    .dot-green { background: var(--green-pale); color: var(--green-dark); }
+    .dot-red { background: #fdecea; color: #c0392b; }
+    .dot-gold { background: var(--gold-light); color: var(--gold); }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--green-mid); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 500px) {
+      .student-card { grid-template-columns: 40px 1fr auto; gap: 0.6rem; padding: 0.8rem; }
+      header h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🕌</div>
+  <h1>حلقة تحفيظ القرآن الكريم</h1>
+  <p>نظام متابعة الطلاب ونقاطهم</p>
+  <div class="week-badge" id="week-label">جاري التحميل...</div>
+</header>
+
+<main>
+
+  <!-- Star of the week -->
+  <div class="star-card" id="star-card">
+    <div class="star-badge">⭐ نجم الأسبوع</div>
+    <div class="star-crown">👑</div>
+    <div class="star-name" id="star-name">—</div>
+    <div class="star-points" id="star-points">—</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-students">—</div>
+      <div class="stat-label">عدد الطلاب</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-pages">—</div>
+      <div class="stat-label">صفحات محفوظة هذا الأسبوع</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-avg">—</div>
+      <div class="stat-label">متوسط نقاط الطلاب</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-juz">—</div>
+      <div class="stat-label">أجزاء مكتملة هذا الأسبوع</div>
+    </div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="section-title">🏆 ترتيب الطلاب</div>
+  <div id="leaderboard"></div>
+
+  <!-- Rules -->
+  <div class="rules-section">
+    <div class="section-title">📋 نظام النقاط</div>
+    <div class="rules-grid">
+      <div class="rule-item"><div class="rule-dot dot-green">+5</div><span>الحضور في المجلس</span></div>
+      <div class="rule-item"><div class="rule-dot dot-green">+5</div><span>الالتزام باللباس</span></div>
+      <div class="rule-item"><div class="rule-dot dot-red">-5</div><span>الغياب بدون عذر</span></div>
+      <div class="rule-item"><div class="rule-dot dot-red">-10</div><span>نسيان البطاقة أو المصحف</span></div>
+      <div class="rule-item"><div class="rule-dot dot-green">+5</div><span>1-2 صفحة (5 لكل صفحة)</span></div>
+      <div class="rule-item"><div class="rule-dot dot-green">+10</div><span>3-5 صفحات (10 لكل صفحة)</span></div>
+      <div class="rule-item"><div class="rule-dot dot-green">+15</div><span>5-10 صفحات (15 لكل صفحة)</span></div>
+      <div class="rule-item"><div class="rule-dot dot-gold">+20</div><span>أكثر من 10 صفحات (20 لكل صفحة)</span></div>
+      <div class="rule-item"><div class="rule-dot dot-gold">+15</div><span>الأكثر التزامًا بالاستغفار في المجموعة</span></div>
+      <div class="rule-item"><div class="rule-dot dot-gold">+10</div><span>الثاني في الاستغفار</span></div>
+      <div class="rule-item"><div class="rule-dot dot-gold">+5</div><span>الثالث في الاستغفار</span></div>
+      <div class="rule-item"><div class="rule-dot dot-gold">🏅</div><span>إنهاء جزء كامل = جائزة خاصة!</span></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  آخر تحديث: <span id="last-updated">—</span> &nbsp;|&nbsp;
+  <a href="admin.html">لوحة الإدارة</a>
+</footer>
+
+<script>
+function calcPointsLabel(pages) {
+  if (pages <= 0) return '0 نقاط من التسميع';
+  if (pages <= 2) return `${pages} صفحة × 5 = ${pages * 5} نقطة`;
+  if (pages <= 5) return `${pages} صفحة × 10 = ${pages * 10} نقطة`;
+  if (pages <= 10) return `${pages} صفحة × 15 = ${pages * 15} نقطة`;
+  return `${pages} صفحة × 20 = ${pages * 20} نقطة`;
+}
+
+function getRankClass(rank) {
+  if (rank === 1) return 'rank-1';
+  if (rank === 2) return 'rank-2';
+  if (rank === 3) return 'rank-3';
+  return '';
+}
+
+function getRankBadge(rank) {
+  if (rank === 1) return '<div class="rank-badge r1">🥇</div>';
+  if (rank === 2) return '<div class="rank-badge r2">🥈</div>';
+  if (rank === 3) return '<div class="rank-badge r3">🥉</div>';
+  return `<div class="rank-badge rn">${rank}</div>`;
+}
+
+function init() {
+  const data = STUDENTS_DATA;
+
+  document.getElementById('week-label').textContent = data.weekLabel;
+  document.getElementById('last-updated').textContent = data.lastUpdated;
+
+  // Sort by total points
+  const sorted = [...data.students].sort((a, b) => b.totalPoints - a.totalPoints);
+  const maxPoints = sorted[0]?.totalPoints || 1;
+
+  // Star of week = most weekPoints
+  const starStudent = [...data.students].sort((a, b) => b.weekPoints - a.weekPoints)[0];
+  if (starStudent) {
+    document.getElementById('star-name').textContent = starStudent.name;
+    document.getElementById('star-points').textContent = `${starStudent.weekPoints} نقطة هذا الأسبوع • ${starStudent.totalPoints} إجمالي`;
+    if (starStudent.completedJuz > 0) {
+      document.getElementById('star-points').insertAdjacentHTML('afterend',
+        `<div class="juz-badge">🎉 أنهى ${starStudent.completedJuz} جزء هذا الأسبوع</div>`);
+    }
+  }
+
+  // Stats
+  document.getElementById('stat-students').textContent = data.students.length;
+  const totalPages = data.students.reduce((s, st) => s + st.pagesMemorized, 0);
+  document.getElementById('stat-pages').textContent = totalPages;
+  const avg = Math.round(data.students.reduce((s, st) => s + st.totalPoints, 0) / data.students.length);
+  document.getElementById('stat-avg').textContent = avg;
+  const juzCount = data.students.filter(st => st.completedJuz > 0).length;
+  document.getElementById('stat-juz').textContent = juzCount;
+
+  // Leaderboard
+  const board = document.getElementById('leaderboard');
+  board.innerHTML = sorted.map((st, i) => {
+    const rank = i + 1;
+    const pct = Math.round((st.totalPoints / maxPoints) * 100);
+    const juzTag = st.completedJuz > 0 ? `<span class="tag-juz">🏅 أنهى جزءًا</span>` : '';
+    return `
+    <div class="student-card ${getRankClass(rank)}">
+      ${getRankBadge(rank)}
+      <div class="student-info">
+        <div class="sname">${st.name} ${juzTag}</div>
+        <div class="smeta">
+          <span>📅 حضور: ${st.attendance}</span>
+          <span>📖 صفحات: ${st.pagesMemorized}</span>
+          ${st.absences > 0 ? `<span>❌ غياب: ${st.absences}</span>` : ''}
+          ${st.istighfar > 0 ? `<span>🤲 استغفار: ${st.istighfar}</span>` : ''}
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="student-points">
+        <div class="points-total">${st.totalPoints}</div>
+        <div class="points-label">نقطة</div>
+        <div class="points-week">+${st.weekPoints} هذا الأسبوع</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+init();
+</script>
+</body>
+</html>
