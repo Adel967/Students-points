@@ -9,12 +9,15 @@ const STUDENTS_DATA = {
       weekPoints: 15,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 1,
       review: 1,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: "تسميع صفحة + مراجعة"
     },
     {
@@ -24,12 +27,15 @@ const STUDENTS_DATA = {
       weekPoints: 10,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 1,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: "تسميع صفحة"
     },
     {
@@ -39,12 +45,15 @@ const STUDENTS_DATA = {
       weekPoints: 5,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: ""
     },
     {
@@ -54,12 +63,15 @@ const STUDENTS_DATA = {
       weekPoints: 5,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: ""
     },
     {
@@ -69,12 +81,15 @@ const STUDENTS_DATA = {
       weekPoints: 5,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: ""
     },
     {
@@ -84,12 +99,15 @@ const STUDENTS_DATA = {
       weekPoints: 5,
       attendance: 1,
       absences: 0,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: ""
     },
     {
@@ -99,12 +117,15 @@ const STUDENTS_DATA = {
       weekPoints: 0,
       attendance: 0,
       absences: 1,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: "غياب (أول مرة)"
     },
     {
@@ -114,12 +135,15 @@ const STUDENTS_DATA = {
       weekPoints: 0,
       attendance: 0,
       absences: 1,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: "غياب (أول مرة)"
     },
     {
@@ -129,12 +153,15 @@ const STUDENTS_DATA = {
       weekPoints: 0,
       attendance: 0,
       absences: 1,
+      absencesExcused: 0,
       dresscode: 0,
       pagesMemorized: 0,
       review: 0,
       forgotCard: 0,
       istighfar: 0,
       completedJuz: 0,
+      bonusPoints: 0,
+      bonusReason: "",
       details: "غياب (أول مرة)"
     }
   ]
