@@ -279,7 +279,7 @@
     <div class="star-badge">⭐ نجم الأسبوع</div>
     <div class="star-crown">👑</div>
     <div class="star-name" id="star-name">—</div>
-    <!-- <div class="star-points" id="star-points">—</div> -->
+    <div class="star-points" id="star-points">—</div>
   </div>
 
   <!-- Stats -->
@@ -369,7 +369,7 @@ function init() {
   const starStudent = [...data.students].sort((a, b) => b.weekPoints - a.weekPoints)[0];
   if (starStudent) {
     document.getElementById('star-name').textContent = starStudent.name;
-    document.getElementById('star-points').textContent = `${starStudent.weekPoints} نقطة هذا الأسبوع • ${starStudent.totalPoints} إجمالي`;
+    document.getElementById('star-points').textContent = `${starStudent.totalPoints} إجمالي`;
     if (starStudent.completedJuz > 0) {
       document.getElementById('star-points').insertAdjacentHTML('afterend',
         `<div class="juz-badge">🎉 أنهى ${starStudent.completedJuz} جزء هذا الأسبوع</div>`);
@@ -411,7 +411,6 @@ function init() {
       <div class="student-points">
         <div class="points-total">${st.totalPoints}</div>
         <div class="points-label">نقطة</div>
-        // <div class="points-week">+${st.weekPoints} هذا الأسبوع</div>
       </div>
     </div>`;
   }).join('');
