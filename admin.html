@@ -14,6 +14,7 @@
       --green-light: #1aaa6e;
       --green-pale: #e8f7f1;
       --gold: #c8953a;
+      --gold-light: #fdf5e6;
       --cream: #fdfaf6;
       --text-main: #1a1a1a;
       --text-muted: #666;
@@ -21,38 +22,33 @@
       --white: #fff;
       --red: #c0392b;
       --red-pale: #fdecea;
+      --orange: #e67e22;
+      --orange-pale: #fef5ec;
     }
     body { font-family: 'Cairo', sans-serif; background: var(--cream); color: var(--text-main); min-height: 100vh; }
     header {
-      background: var(--green-dark);
-      color: white; padding: 1.2rem 1.5rem;
+      background: var(--green-dark); color: white;
+      padding: 1.2rem 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
     }
     header h1 { font-size: 1.2rem; font-weight: 700; }
     .back-btn {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: white; border-radius: 8px;
-      padding: 0.4rem 1rem; font-family: 'Cairo', sans-serif;
-      font-size: 0.88rem; cursor: pointer; text-decoration: none;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 8px; padding: 0.4rem 1rem;
+      font-family: 'Cairo', sans-serif; font-size: 0.88rem; cursor: pointer; text-decoration: none;
     }
     main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
 
-    /* Tabs */
     .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
     .tab-btn {
-      padding: 0.5rem 1.2rem; border-radius: 10px;
-      border: 1.5px solid var(--border);
+      padding: 0.5rem 1.2rem; border-radius: 10px; border: 1.5px solid var(--border);
       background: var(--white); font-family: 'Cairo', sans-serif;
-      font-size: 0.88rem; cursor: pointer; font-weight: 600;
-      color: var(--text-muted); transition: all 0.15s;
+      font-size: 0.88rem; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: all 0.15s;
     }
     .tab-btn.active { background: var(--green-dark); color: white; border-color: var(--green-dark); }
-
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Edit form */
     .week-meta {
       background: var(--white); border: 1px solid var(--border);
       border-radius: 14px; padding: 1.2rem; margin-bottom: 1.4rem;
@@ -60,23 +56,19 @@
     }
     .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
     .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-    .form-group input, .form-group select {
+    .form-group input {
       border: 1px solid var(--border); border-radius: 8px;
-      padding: 0.5rem 0.8rem; font-family: 'Cairo', sans-serif;
-      font-size: 0.9rem; outline: none;
-      transition: border-color 0.15s;
+      padding: 0.5rem 0.8rem; font-family: 'Cairo', sans-serif; font-size: 0.9rem; outline: none;
     }
     .form-group input:focus { border-color: var(--green-mid); }
 
-    /* Student editor card */
     .student-editor {
       background: var(--white); border: 1px solid var(--border);
       border-radius: 14px; margin-bottom: 1rem; overflow: hidden;
     }
     .student-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.9rem 1.2rem; cursor: pointer; user-select: none;
-      background: var(--green-pale);
+      padding: 0.9rem 1.2rem; cursor: pointer; user-select: none; background: var(--green-pale);
     }
     .student-header:hover { background: #d5f0e7; }
     .shead-left { display: flex; align-items: center; gap: 0.8rem; }
@@ -86,34 +78,53 @@
     .shead-total { font-size: 1.1rem; font-weight: 900; color: var(--green-dark); }
     .chevron { transition: transform 0.2s; font-size: 1rem; color: var(--text-muted); }
     .student-editor.open .chevron { transform: rotate(180deg); }
-
-    .student-body {
-      display: none; padding: 1.2rem;
-      border-top: 1px solid var(--border);
-    }
+    .student-body { display: none; padding: 1.2rem; border-top: 1px solid var(--border); }
     .student-editor.open .student-body { display: block; }
 
+    /* Section labels inside student body */
+    .fields-section-label {
+      font-size: 0.78rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin: 1rem 0 0.5rem; padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fields-section-label:first-child { margin-top: 0; }
+
     .fields-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.8rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem;
     }
     .field-item { display: flex; flex-direction: column; gap: 0.3rem; }
     .field-item label { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
     .field-item input[type="number"] {
       border: 1px solid var(--border); border-radius: 8px;
       padding: 0.45rem 0.7rem; font-family: 'Cairo', sans-serif;
-      font-size: 1rem; font-weight: 700; text-align: center; outline: none;
-      width: 100%;
+      font-size: 1rem; font-weight: 700; text-align: center; outline: none; width: 100%;
     }
     .field-item input[type="number"]:focus { border-color: var(--green-mid); }
+    .field-item.negative input { border-color: #f5c6c2; background: #fff8f8; }
     .field-item.negative input:focus { border-color: var(--red); }
+    .field-item.bonus input { border-color: #fde8c0; background: var(--gold-light); }
+    .field-item.bonus input:focus { border-color: var(--gold); }
+
+    /* Bonus row */
+    .bonus-row {
+      display: grid; grid-template-columns: 120px 1fr; gap: 0.8rem;
+      align-items: end; margin-top: 0.5rem;
+    }
+    .bonus-row input[type="text"] {
+      border: 1px solid #fde8c0; border-radius: 8px; background: var(--gold-light);
+      padding: 0.45rem 0.8rem; font-family: 'Cairo', sans-serif; font-size: 0.88rem; outline: none; width: 100%;
+    }
+    .bonus-row input[type="text"]:focus { border-color: var(--gold); }
+
     .calc-preview {
       background: var(--green-pale); border-radius: 8px;
-      padding: 0.5rem 0.8rem; margin-top: 0.8rem;
+      padding: 0.6rem 0.8rem; margin-top: 1rem;
       font-size: 0.82rem; color: var(--green-dark);
       display: flex; justify-content: space-between; align-items: center;
     }
-    .calc-preview strong { font-size: 1.1rem; font-weight: 900; }
+    .calc-preview strong { font-size: 1.2rem; font-weight: 900; }
+
     .notes-row { margin-top: 0.8rem; }
     .notes-row input {
       width: 100%; border: 1px solid var(--border); border-radius: 8px;
@@ -121,29 +132,19 @@
     }
     .notes-row input:focus { border-color: var(--green-mid); }
 
-    /* Action buttons */
     .actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; }
     .btn {
-      padding: 0.65rem 1.4rem; border-radius: 10px;
-      border: none; font-family: 'Cairo', sans-serif;
-      font-size: 0.95rem; font-weight: 700; cursor: pointer;
-      transition: all 0.15s;
+      padding: 0.65rem 1.4rem; border-radius: 10px; border: none;
+      font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
     }
     .btn-primary { background: var(--green-dark); color: white; }
     .btn-primary:hover { background: var(--green-mid); }
     .btn-secondary { background: var(--gold); color: white; }
     .btn-secondary:hover { opacity: 0.85; }
-    .btn-outline {
-      background: transparent; color: var(--text-muted);
-      border: 1.5px solid var(--border);
-    }
-    .btn-outline:hover { background: var(--border); }
 
-    /* Add student */
     .add-card {
       background: var(--white); border: 2px dashed var(--border);
-      border-radius: 14px; padding: 1.5rem; text-align: center;
-      margin-bottom: 1rem;
+      border-radius: 14px; padding: 1.5rem; text-align: center; margin-bottom: 1rem;
     }
     .add-card input {
       border: 1px solid var(--border); border-radius: 8px;
@@ -152,7 +153,6 @@
     }
     .add-card input:focus { border-color: var(--green-mid); }
 
-    /* Output box */
     .output-box {
       background: #1a1a2e; color: #a8ffd0; border-radius: 12px;
       padding: 1.2rem; font-family: monospace; font-size: 0.78rem;
@@ -160,24 +160,19 @@
       max-height: 400px; overflow-y: auto; margin-top: 1rem;
     }
     .copy-btn {
-      background: var(--green-mid); color: white;
-      border: none; border-radius: 8px; padding: 0.5rem 1.2rem;
-      font-family: 'Cairo', sans-serif; font-size: 0.9rem; cursor: pointer;
-      margin-bottom: 0.8rem; display: block;
+      background: var(--green-mid); color: white; border: none;
+      border-radius: 8px; padding: 0.5rem 1.2rem;
+      font-family: 'Cairo', sans-serif; font-size: 0.9rem; cursor: pointer; margin-bottom: 0.8rem; display: block;
     }
     .copy-btn:hover { background: var(--green-dark); }
 
-    .alert {
-      padding: 0.8rem 1rem; border-radius: 10px;
-      font-size: 0.88rem; font-weight: 600; margin-bottom: 1rem;
-      display: none;
-    }
+    .alert { padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.88rem; font-weight: 600; margin-bottom: 1rem; display: none; }
     .alert-success { background: var(--green-pale); color: var(--green-dark); display: block; }
-    .alert-info { background: #e8f0fe; color: #1a56a8; display: block; }
 
     @media (max-width: 500px) {
       .week-meta { grid-template-columns: 1fr; }
       .fields-grid { grid-template-columns: repeat(2, 1fr); }
+      .bonus-row { grid-template-columns: 1fr; }
       header { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
@@ -191,174 +186,92 @@
 
 <main>
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('edit')">✏️ تعديل النقاط</button>
-    <button class="tab-btn" onclick="switchTab('export')">📤 تصدير البيانات</button>
-    <button class="tab-btn" onclick="switchTab('add')">➕ إضافة طالب</button>
-    <button class="tab-btn" onclick="switchTab('guide')">📖 دليل الاستخدام</button>
+    <button class="tab-btn active" onclick="switchTab('edit', this)">✏️ تعديل النقاط</button>
+    <button class="tab-btn" onclick="switchTab('export', this)">📤 تصدير البيانات</button>
+    <button class="tab-btn" onclick="switchTab('add', this)">➕ إضافة طالب</button>
+    <button class="tab-btn" onclick="switchTab('guide', this)">📖 دليل الاستخدام</button>
   </div>
 
   <!-- TAB: Edit -->
   <div id="tab-edit" class="tab-panel active">
-    <div class="alert" id="save-alert">✅ تم تحديث الملف — انسخ الكود من تبويب "تصدير البيانات"</div>
-
+    <div class="alert" id="save-alert">✅ تم الحفظ — انتقل لتبويب "تصدير البيانات" لنسخ الكود</div>
     <div class="week-meta">
       <div class="form-group">
         <label>تسمية الأسبوع</label>
-        <input type="text" id="week-label" placeholder="الأسبوع الأول - يونيو 2025">
+        <input type="text" id="week-label">
       </div>
       <div class="form-group">
         <label>تاريخ آخر تحديث</label>
-        <input type="text" id="last-updated" placeholder="15 يونيو 2025">
+        <input type="text" id="last-updated">
       </div>
     </div>
-
     <div id="students-list"></div>
-
     <div class="actions">
       <button class="btn btn-primary" onclick="saveAndExport()">💾 حفظ وتصدير</button>
-      <button class="btn btn-secondary" onclick="switchTab('export')">📋 نسخ الكود</button>
+      <button class="btn btn-secondary" onclick="goExport()">📋 نسخ الكود</button>
     </div>
   </div>
 
   <!-- TAB: Export -->
   <div id="tab-export" class="tab-panel">
-    <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
-      انسخ الكود التالي وضعه في ملف <strong>students.js</strong> في المشروع، ثم ارفع الملف مجدداً على GitHub.
+    <p style="margin-bottom:1rem;color:var(--text-muted);font-size:0.9rem;">
+      انسخ الكود وضعه في ملف <strong>students.js</strong> على GitHub.
     </p>
     <button class="copy-btn" onclick="copyCode()">📋 نسخ الكود كاملاً</button>
     <div class="output-box" id="output-box">جاري التحضير...</div>
   </div>
 
-  <!-- TAB: Add Student -->
+  <!-- TAB: Add -->
   <div id="tab-add" class="tab-panel">
     <div class="add-card">
-      <p style="margin-bottom: 1rem; font-weight: 600;">إضافة طالب جديد</p>
+      <p style="margin-bottom:1rem;font-weight:600;">إضافة طالب جديد</p>
       <input type="text" id="new-name" placeholder="اسم الطالب الكامل">
-      <button class="btn btn-primary" style="margin-top: 0.5rem; display: inline-block;" onclick="addStudent()">إضافة</button>
+      <button class="btn btn-primary" style="margin-top:0.5rem;display:inline-block;" onclick="addStudent()">إضافة</button>
     </div>
-    <p style="font-size: 0.82rem; color: var(--text-muted);">
-      بعد الإضافة، اذهب لتبويب "تعديل النقاط" لإدخال نقاط الطالب الجديد، ثم "تصدير البيانات" لنسخ الكود.
-    </p>
   </div>
 
   <!-- TAB: Guide -->
   <div id="tab-guide" class="tab-panel">
-    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; line-height: 2;">
-      <h3 style="color: var(--green-dark); margin-bottom: 1rem;">📖 كيف تحدّث النقاط أسبوعياً؟</h3>
-      <ol style="padding-right: 1.2rem; font-size: 0.92rem; color: var(--text-main);">
-        <li>افتح صفحة <code style="background:#f0f0f0; padding: 0 4px; border-radius:4px;">admin.html</code> من المشروع</li>
-        <li>في تبويب <strong>تعديل النقاط</strong>، عدّل بيانات كل طالب</li>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.4rem;line-height:2;">
+      <h3 style="color:var(--green-dark);margin-bottom:1rem;">📖 كيف تحدّث النقاط أسبوعياً؟</h3>
+      <ol style="padding-right:1.2rem;font-size:0.92rem;">
+        <li>افتح <code>admin.html</code> وعدّل بيانات الطلاب</li>
         <li>اضغط <strong>"حفظ وتصدير"</strong></li>
-        <li>انتقل لتبويب <strong>"تصدير البيانات"</strong> وانسخ الكود</li>
-        <li>افتح ملف <code style="background:#f0f0f0; padding: 0 4px; border-radius:4px;">students.js</code> في مستودع GitHub</li>
-        <li>اضغط ✏️ تعديل، والصق الكود الجديد، ثم <strong>Commit changes</strong></li>
-        <li>الموقع يتحدث تلقائياً خلال دقيقة! 🎉</li>
+        <li>انتقل لـ <strong>"تصدير البيانات"</strong> وانسخ الكود</li>
+        <li>افتح ملف <code>students.js</code> في GitHub → ✏️ → الصق → Commit</li>
+        <li>الموقع يتحدث خلال دقيقة! 🎉</li>
       </ol>
-      <hr style="border: none; border-top: 1px solid var(--border); margin: 1rem 0;">
-      <h3 style="color: var(--green-dark); margin-bottom: 0.8rem;">🌐 كيف ترفع الموقع على GitHub Pages؟</h3>
-      <ol style="padding-right: 1.2rem; font-size: 0.92rem;">
-        <li>أنشئ حساباً على <a href="https://github.com" target="_blank" style="color: var(--green-mid);">github.com</a></li>
-        <li>أنشئ مستودعاً جديداً (Repository)</li>
-        <li>ارفع الملفات الثلاثة: <code>index.html</code> و<code>admin.html</code> و<code>students.js</code></li>
-        <li>اذهب لـ Settings → Pages → Source → Main Branch</li>
-        <li>رابط موقعك: <code>https://اسمك.github.io/اسم-المشروع</code></li>
-      </ol>
+      <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
+      <h3 style="color:var(--green-dark);margin-bottom:0.8rem;">📋 نظام الغياب</h3>
+      <ul style="padding-right:1.2rem;font-size:0.92rem;">
+        <li>غياب بعذر: <strong style="color:var(--red);">-5 نقاط</strong></li>
+        <li>غياب بدون عذر: <strong style="color:var(--red);">-20 نقطة</strong></li>
+      </ul>
     </div>
   </div>
-
 </main>
 
 <script>
-// ─── State ───
 let state = JSON.parse(JSON.stringify(STUDENTS_DATA));
 
-function switchTab(name) {
+function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
   if (name === 'export') renderExport();
-}
-
-// ─── Render editor ───
-function renderEditor() {
-  document.getElementById('week-label').value = state.weekLabel;
-  document.getElementById('last-updated').value = state.lastUpdated;
-
-  const list = document.getElementById('students-list');
-  list.innerHTML = state.students.map((st, i) => `
-  <div class="student-editor" id="sed-${i}">
-    <div class="student-header" onclick="toggleStudent(${i})">
-      <div class="shead-left">
-        <div class="snum">${i + 1}</div>
-        <div>
-          <div class="shead-name">${st.name}</div>
-          <div class="shead-pts">هذا الأسبوع: ${st.weekPoints} | إجمالي: ${st.totalPoints}</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <div class="shead-total">${st.totalPoints} نقطة</div>
-        <span class="chevron">▼</span>
-      </div>
-    </div>
-    <div class="student-body">
-      <div class="fields-grid">
-        <div class="field-item">
-          <label>🟢 النقاط الإجمالية السابقة</label>
-          <input type="number" value="${st.totalPoints}" min="0" onchange="updateField(${i},'totalPoints',+this.value)">
-        </div>
-        <div class="field-item">
-          <label>📅 عدد الحضور هذا الأسبوع</label>
-          <input type="number" value="${st.attendance}" min="0" onchange="updateField(${i},'attendance',+this.value)">
-        </div>
-        <div class="field-item">
-          <label>👔 جلسات الالتزام بالزي</label>
-          <input type="number" value="${st.dresscode}" min="0" onchange="updateField(${i},'dresscode',+this.value)">
-        </div>
-        <div class="field-item negative">
-          <label>❌ عدد الغيابات</label>
-          <input type="number" value="${st.absences}" min="0" onchange="updateField(${i},'absences',+this.value)">
-        </div>
-        <div class="field-item">
-          <label>📖 صفحات التسميع هذا الأسبوع</label>
-          <input type="number" value="${st.pagesMemorized}" min="0" onchange="updateField(${i},'pagesMemorized',+this.value)">
-        </div>
-        <div class="field-item negative">
-          <label>📛 نسيان البطاقة/المصحف (مرات)</label>
-          <input type="number" value="${st.forgotCard}" min="0" onchange="updateField(${i},'forgotCard',+this.value)">
-        </div>
-        <div class="field-item">
-          <label>🤲 ترتيب الاستغفار (1=أول، 0=لا)</label>
-          <input type="number" value="${st.istighfar}" min="0" max="3" onchange="updateField(${i},'istighfar',+this.value)">
-        </div>
-        <div class="field-item">
-          <label>🏅 أجزاء مكتملة هذا الأسبوع</label>
-          <input type="number" value="${st.completedJuz}" min="0" onchange="updateField(${i},'completedJuz',+this.value)">
-        </div>
-      </div>
-      <div class="calc-preview">
-        <span>نقاط هذا الأسبوع المحسوبة تلقائياً:</span>
-        <strong id="calc-${i}">${calcWeekPoints(st)} نقطة</strong>
-      </div>
-      <div class="notes-row">
-        <input type="text" value="${st.details}" placeholder="ملاحظة (اختياري)..." onchange="updateField(${i},'details',this.value)">
-      </div>
-    </div>
-  </div>`).join('');
-}
-
-function toggleStudent(i) {
-  document.getElementById('sed-' + i).classList.toggle('open');
 }
 
 function calcWeekPoints(st) {
   let pts = 0;
-  pts += st.attendance * 5;
-  pts += st.dresscode * 5;
-  pts -= st.absences * 5;
-  pts -= st.forgotCard * 10;
+  pts += (st.attendance || 0) * 5;
+  pts += (st.dresscode || 0) * 5;
+  pts -= (st.absences || 0) * 20;       // بدون عذر
+  pts -= (st.absencesExcused || 0) * 5; // بعذر
+  pts -= (st.forgotCard || 0) * 10;
+  pts += (st.review || 0) * 5;
 
-  const p = st.pagesMemorized;
+  const p = st.pagesMemorized || 0;
   if (p === 1 || p === 2) pts += p * 5;
   else if (p >= 3 && p <= 5) pts += p * 10;
   else if (p > 5 && p <= 10) pts += p * 15;
@@ -368,37 +281,154 @@ function calcWeekPoints(st) {
   else if (st.istighfar === 2) pts += 10;
   else if (st.istighfar === 3) pts += 5;
 
-  return Math.max(0, pts);
+  pts += (st.bonusPoints || 0);
+  return pts;
+}
+
+function renderEditor() {
+  document.getElementById('week-label').value = state.weekLabel;
+  document.getElementById('last-updated').value = state.lastUpdated;
+
+  const list = document.getElementById('students-list');
+  list.innerHTML = state.students.map((st, i) => `
+  <div class="student-editor" id="sed-${i}">
+    <div class="student-header" onclick="toggleStudent(${i})">
+      <div class="shead-left">
+        <div class="snum">${i+1}</div>
+        <div>
+          <div class="shead-name">${st.name}</div>
+          <div class="shead-pts">الأسبوع: ${st.weekPoints} | الإجمالي: ${st.totalPoints}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="shead-total">${st.totalPoints} نقطة</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="student-body">
+
+      <div class="fields-section-label">✅ الحضور والالتزام</div>
+      <div class="fields-grid">
+        <div class="field-item">
+          <label>📅 عدد الحضور</label>
+          <input type="number" value="${st.attendance||0}" min="0" onchange="updateField(${i},'attendance',+this.value)">
+        </div>
+        <div class="field-item">
+          <label>👔 الالتزام بالزي</label>
+          <input type="number" value="${st.dresscode||0}" min="0" onchange="updateField(${i},'dresscode',+this.value)">
+        </div>
+      </div>
+
+      <div class="fields-section-label">❌ الغياب</div>
+      <div class="fields-grid">
+        <div class="field-item negative">
+          <label>❌ غياب بدون عذر (-20 لكل)</label>
+          <input type="number" value="${st.absences||0}" min="0" onchange="updateField(${i},'absences',+this.value)">
+        </div>
+        <div class="field-item negative">
+          <label>⚠️ غياب بعذر (-5 لكل)</label>
+          <input type="number" value="${st.absencesExcused||0}" min="0" onchange="updateField(${i},'absencesExcused',+this.value)">
+        </div>
+        <div class="field-item negative">
+          <label>📛 نسيان البطاقة/المصحف (-10)</label>
+          <input type="number" value="${st.forgotCard||0}" min="0" onchange="updateField(${i},'forgotCard',+this.value)">
+        </div>
+      </div>
+
+      <div class="fields-section-label">📖 التسميع والمراجعة</div>
+      <div class="fields-grid">
+        <div class="field-item">
+          <label>📖 صفحات التسميع</label>
+          <input type="number" value="${st.pagesMemorized||0}" min="0" onchange="updateField(${i},'pagesMemorized',+this.value)">
+        </div>
+        <div class="field-item">
+          <label>🔁 المراجعة (+5 لكل مرة)</label>
+          <input type="number" value="${st.review||0}" min="0" onchange="updateField(${i},'review',+this.value)">
+        </div>
+        <div class="field-item">
+          <label>🏅 أجزاء مكتملة</label>
+          <input type="number" value="${st.completedJuz||0}" min="0" onchange="updateField(${i},'completedJuz',+this.value)">
+        </div>
+      </div>
+
+      <div class="fields-section-label">🤲 الاستغفار</div>
+      <div class="fields-grid">
+        <div class="field-item">
+          <label>🤲 ترتيب الاستغفار (1=أول 2=ثاني 3=ثالث 0=لا)</label>
+          <input type="number" value="${st.istighfar||0}" min="0" max="3" onchange="updateField(${i},'istighfar',+this.value)">
+        </div>
+      </div>
+
+      <div class="fields-section-label">⭐ نقاط استثنائية</div>
+      <div class="bonus-row">
+        <div class="field-item bonus">
+          <label>⭐ النقاط الاستثنائية</label>
+          <input type="number" value="${st.bonusPoints||0}" onchange="updateField(${i},'bonusPoints',+this.value)">
+        </div>
+        <div class="field-item">
+          <label>📝 سبب النقاط الاستثنائية</label>
+          <input type="text" value="${st.bonusReason||''}" placeholder="مثال: مساعدة في ترتيب المسجد..." onchange="updateField(${i},'bonusReason',this.value)">
+        </div>
+      </div>
+
+      <div class="calc-preview">
+        <span>نقاط هذا الأسبوع (محسوبة تلقائياً):</span>
+        <strong id="calc-${i}">${calcWeekPoints(st)} نقطة</strong>
+      </div>
+
+      <div class="fields-section-label">🗂️ إجمالي النقاط</div>
+      <div class="fields-grid">
+        <div class="field-item">
+          <label>📊 النقاط الإجمالية (تعديل يدوي)</label>
+          <input type="number" value="${st.totalPoints||0}" min="0" onchange="updateField(${i},'totalPoints',+this.value)">
+        </div>
+      </div>
+
+      <div class="notes-row">
+        <input type="text" value="${st.details||''}" placeholder="ملاحظة..." onchange="updateField(${i},'details',this.value)">
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function toggleStudent(i) {
+  document.getElementById('sed-' + i).classList.toggle('open');
 }
 
 function updateField(i, field, val) {
   state.students[i][field] = val;
   const weekPts = calcWeekPoints(state.students[i]);
   state.students[i].weekPoints = weekPts;
-  const calcEl = document.getElementById('calc-' + i);
-  if (calcEl) calcEl.textContent = weekPts + ' نقطة';
-  // Recompute total = previous total + week points (stored as given by admin)
+  const el = document.getElementById('calc-' + i);
+  if (el) el.textContent = weekPts + ' نقطة';
 }
 
 function saveAndExport() {
   state.weekLabel = document.getElementById('week-label').value;
   state.lastUpdated = document.getElementById('last-updated').value;
-  // Auto-calc weekPoints
   state.students.forEach(st => { st.weekPoints = calcWeekPoints(st); });
-  document.getElementById('save-alert').className = 'alert alert-success';
-  setTimeout(() => { document.getElementById('save-alert').style.display = 'none'; }, 3000);
+  const alert = document.getElementById('save-alert');
+  alert.className = 'alert alert-success';
+  setTimeout(() => { alert.style.display = 'none'; }, 3000);
   renderEditor();
   renderExport();
 }
 
+function goExport() {
+  renderExport();
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-export').classList.add('active');
+  document.querySelectorAll('.tab-btn')[1].classList.add('active');
+}
+
 function renderExport() {
-  const js = `const STUDENTS_DATA = ${JSON.stringify(state, null, 2)};`;
-  document.getElementById('output-box').textContent = js;
+  document.getElementById('output-box').textContent =
+    'const STUDENTS_DATA = ' + JSON.stringify(state, null, 2) + ';';
 }
 
 function copyCode() {
-  const text = document.getElementById('output-box').textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(document.getElementById('output-box').textContent).then(() => {
     const btn = document.querySelector('.copy-btn');
     btn.textContent = '✅ تم النسخ!';
     setTimeout(() => { btn.textContent = '📋 نسخ الكود كاملاً'; }, 2000);
@@ -412,17 +442,17 @@ function addStudent() {
   state.students.push({
     id: maxId + 1, name,
     totalPoints: 0, weekPoints: 0,
-    attendance: 0, absences: 0, dresscode: 0,
-    pagesMemorized: 0, forgotCard: 0, istighfar: 0, completedJuz: 0,
-    details: ''
+    attendance: 0, absences: 0, absencesExcused: 0,
+    dresscode: 0, pagesMemorized: 0, review: 0,
+    forgotCard: 0, istighfar: 0, completedJuz: 0,
+    bonusPoints: 0, bonusReason: '', details: ''
   });
   document.getElementById('new-name').value = '';
   renderEditor();
-  switchTab('edit');
-  alert(`✅ تم إضافة الطالب "${name}" — اذهب لتعديل نقاطه`);
+  switchTab('edit', document.querySelectorAll('.tab-btn')[0]);
+  alert(`✅ تمت إضافة "${name}"`);
 }
 
-// Init
 renderEditor();
 renderExport();
 </script>
